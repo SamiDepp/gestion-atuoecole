@@ -1,11 +1,10 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.CondidatDAO;
@@ -14,27 +13,29 @@ import com.autoecole.myapp.dao.MoniteurDAO;
 import com.autoecole.myapp.entities.Condidat;
 import com.autoecole.myapp.entities.Examen;
 import com.autoecole.myapp.entities.Moniteur;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class ExamenServices {
 	
 	private static final Logger LoggerFactory = null;
 	private static final Logger logger = Logger.getAnonymousLogger();
 	
-	@Resource
+	@Autowired
 	private ExamDAO repository ;
 	
-	@Resource
+	@Autowired
 	private CondidatDAO candidatrepository ;
 	
 	
-	@Resource
+	@Autowired
 	private MoniteurDAO moniteurrepository ;
 	
 	
 	public Examen getbyid(Long id){
 		
-		return repository.findOne(id);
+		return repository.getOne(id);
 		
 		
 	}
@@ -43,8 +44,8 @@ public class ExamenServices {
 	
 	public Examen create(Date datedeb ,Date datefin ,String type ,String resultat ,String candidat ,String moniteur ){
 		
-		Condidat candid = candidatrepository.findOne(Long.parseLong(candidat));
-		Moniteur monit = moniteurrepository.findOne(Long.parseLong(moniteur));
+		Condidat candid = candidatrepository.getOne(Long.parseLong(candidat));
+		Moniteur monit = moniteurrepository.getOne(Long.parseLong(moniteur));
 		logger.info("moniteur to add"+monit.getId());
 		Boolean result = true ;
 		if(Long.parseLong(resultat) == 0 ){

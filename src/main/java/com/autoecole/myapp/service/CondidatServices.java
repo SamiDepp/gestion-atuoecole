@@ -1,25 +1,26 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.CondidatDAO;
 import com.autoecole.myapp.dao.UserDAO;
 import com.autoecole.myapp.entities.Condidat;
-import com.autoecole.myapp.entities.Moniteur;
 import com.autoecole.myapp.entities.User;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
+@Transactional
 public class CondidatServices {
 	
 	
-	@Resource
+	@Autowired
 	private CondidatDAO repository ;
 	
-	@Resource
+	@Autowired
 	private UserDAO userrespository ;
 	
 	
@@ -33,7 +34,7 @@ public class CondidatServices {
 	
 	
 	public Condidat getbyuser(Long id){
-		User us = userrespository.findOne(id);
+		User us = userrespository.getOne(id);
 		
 		return repository.findByUserid(us);
 		

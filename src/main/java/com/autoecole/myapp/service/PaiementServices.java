@@ -1,9 +1,8 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.CondidatDAO;
@@ -12,19 +11,20 @@ import com.autoecole.myapp.dao.PaiementDAO;
 import com.autoecole.myapp.entities.Condidat;
 import com.autoecole.myapp.entities.Moniteur;
 import com.autoecole.myapp.entities.Payement;
-import com.autoecole.myapp.entities.User;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class PaiementServices {
 	
 	
-	@Resource
+	@Autowired
 	private PaiementDAO repository ;
 	
-	@Resource
+	@Autowired
 	private MoniteurDAO monitrepository ;
 	
-	@Resource
+	@Autowired
 	private CondidatDAO condidrepository ;
 	
 	
@@ -35,8 +35,8 @@ public class PaiementServices {
 	
 	public Payement create(Long condidatid, Long moniteurid, int total_conduit, double montant_total, int nbseance){
 		
-		Moniteur moniteur = monitrepository.findOne(moniteurid);
-		Condidat condidat = condidrepository.findOne(condidatid);
+		Moniteur moniteur = monitrepository.getOne(moniteurid);
+		Condidat condidat = condidrepository.getOne(condidatid);
 		Payement pay = new Payement(condidat, moniteur, total_conduit, montant_total, nbseance);
 		return repository.saveAndFlush(pay);
 	}

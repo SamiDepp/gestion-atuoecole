@@ -1,26 +1,26 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.AutoEcoleDAO;
 import com.autoecole.myapp.entities.AutoEcole;
-
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class AutoEcolesevices {
 
-	@Resource
+	@Autowired
 	private AutoEcoleDAO repository ;
 	
 	
 
 	public AutoEcole getbyid(Long id) {
-		AutoEcole auto = repository.findOne(id);
+		AutoEcole auto = repository.getOne(id);
 		return auto;
 	}
 

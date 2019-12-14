@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import com.autoecole.myapp.entities.Roles;
 import com.autoecole.myapp.entities.User;
 
-
-
 @Repository
 public interface UserDAO extends JpaRepository<User, Long> {
 	

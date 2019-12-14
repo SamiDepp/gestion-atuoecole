@@ -1,10 +1,9 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.Resource;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.AutoEcoleDAO;
@@ -17,35 +16,37 @@ import com.autoecole.myapp.entities.Condidat;
 import com.autoecole.myapp.entities.Moniteur;
 import com.autoecole.myapp.entities.Roles;
 import com.autoecole.myapp.entities.User;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
+@Transactional
 public class UserServices  {
 	
 	
-	@Resource
+	@Autowired
 	private UserDAO repository ;
 	
 	
-	@Resource
+	@Autowired
 	private RoleDAO rolerepository ;
 	
 	
-	@Resource
+	@Autowired
 	private AutoEcoleDAO autorepository ;
 	
 	
-	@Resource
+	@Autowired
 	private CondidatDAO candidatrepository ;
 	
 	
-	@Resource
+	@Autowired
 	private MoniteurDAO moniteurrepository ;
 	
 
 	
 	public User getbyid(Long id) {
-		User user = repository.findOne(id);
+		User user = repository.getOne(id);
 		return user;
 	}
 
@@ -56,8 +57,8 @@ public class UserServices  {
 		
 		String username = nom+prenom ;
 		String password = username ;
-		Roles roles = rolerepository.findOne(role);
-		AutoEcole auto = autorepository.findOne(autoecole);
+		Roles roles = rolerepository.getOne(role);
+		AutoEcole auto = autorepository.getOne(autoecole);
 		
 		User us = new User(nom, prenom, dateNaiss, sexe, adresse, nrotel, cin, email, username, password, roles, auto);
 		User uscreate = repository.saveAndFlush(us);
@@ -81,7 +82,7 @@ public class UserServices  {
 	public User update(Long id,String nom, String prenom, Date dateNaiss, String sexe,
 			String adresse, String nrotel, String cin, String email, Long role,
 			Long autoecole, byte[] image) {
-	User condidat =	repository.findOne(id);
+	User condidat =	repository.getOne(id);
 	
 	if((nom.length() > 0)&&(nom != null)){
 		
@@ -141,7 +142,7 @@ public class UserServices  {
 
 	
 	public void delete(Long id) {
-		repository.delete(id);
+		repository.deleteById(id);
 		
 	}
 
@@ -164,9 +165,9 @@ public class UserServices  {
 	}
 
 	
-	public User findOne(Long id) {
+	public User getOne(Long id) {
 		// TODO Auto-generated method stub
-		return repository.findOne(id);
+		return repository.getOne(id);
 	}
 
 	
@@ -178,7 +179,7 @@ public class UserServices  {
 	
 	public List<User> findByRole(Long role) {
 		
-		Roles rolee = rolerepository.findOne(role);
+		Roles rolee = rolerepository.getOne(role);
 		
 		return repository.findByRole(rolee);
 	}

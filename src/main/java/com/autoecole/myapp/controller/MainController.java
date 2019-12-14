@@ -1,4 +1,4 @@
-package com.autoecole.myapp;
+package com.autoecole.myapp.controller;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,15 +20,15 @@ import com.autoecole.myapp.entities.Condidat;
 import com.autoecole.myapp.entities.Moniteur;
 import com.autoecole.myapp.entities.Seance;
 import com.autoecole.myapp.entities.User;
-import com.autoecole.myapp.metier.AutoEcolesevices;
-import com.autoecole.myapp.metier.CondidatServices;
-import com.autoecole.myapp.metier.ExamenServices;
-import com.autoecole.myapp.metier.MoniteurServices;
-import com.autoecole.myapp.metier.PaiementServices;
-import com.autoecole.myapp.metier.RoleServices;
-import com.autoecole.myapp.metier.SeanceServices;
-import com.autoecole.myapp.metier.UserServices;
-import com.autoecole.myapp.metier.VehiculeServices;
+import com.autoecole.myapp.service.AutoEcolesevices;
+import com.autoecole.myapp.service.CondidatServices;
+import com.autoecole.myapp.service.ExamenServices;
+import com.autoecole.myapp.service.MoniteurServices;
+import com.autoecole.myapp.service.PaiementServices;
+import com.autoecole.myapp.service.RoleServices;
+import com.autoecole.myapp.service.SeanceServices;
+import com.autoecole.myapp.service.UserServices;
+import com.autoecole.myapp.service.VehiculeServices;
 import com.autoecole.myapp.model.ExamModel;
 import com.autoecole.myapp.model.Loginmodel;
 import com.autoecole.myapp.model.PayModel;
@@ -40,7 +40,7 @@ import com.autoecole.myapp.model.VehiculeModel;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class MainController {
 
 	private static final Logger LoggerFactory = null;
 	private static final Logger logger = Logger.getAnonymousLogger();
@@ -292,7 +292,7 @@ public class HomeController {
 	@RequestMapping(value = "updateUser", method = RequestMethod.GET)
 	public String updateUser(Model model, @RequestParam("id") String id) {
 
-		model.addAttribute("user", userservice.findOne(Long.parseLong(id)));
+		model.addAttribute("user", userservice.getOne(Long.parseLong(id)));
 		model.addAttribute("userList", userservice.findAll());
 		model.addAttribute("userModel", new UserModel());
 		model.addAttribute("ListRoles", roleservice.list());

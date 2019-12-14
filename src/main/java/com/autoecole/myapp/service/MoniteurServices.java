@@ -1,25 +1,25 @@
-package com.autoecole.myapp.metier;
+package com.autoecole.myapp.service;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.autoecole.myapp.dao.MoniteurDAO;
 import com.autoecole.myapp.dao.UserDAO;
 import com.autoecole.myapp.entities.Moniteur;
 import com.autoecole.myapp.entities.User;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class MoniteurServices {
 	
 	
-	@Resource
+	@Autowired
 	private MoniteurDAO respository ;
 	
-	@Resource
+	@Autowired
 	private UserDAO userrespository ;
 	
 	
@@ -30,8 +30,8 @@ public class MoniteurServices {
 	}
 	public void delete(Long id){
 		
-		Moniteur monit = respository.findOne(id);
-		User us = userrespository.findOne(monit.getUserid().getId());
+		Moniteur monit = respository.getOne(id);
+		User us = userrespository.getOne(monit.getUserid().getId());
 		respository.delete(monit);
 		userrespository.delete(us);
 		
@@ -39,12 +39,12 @@ public class MoniteurServices {
 	}
 	
 	public Moniteur getbyid(Long id){
-		return respository.findOne(id);
+		return respository.getOne(id);
 		
 	}
 	
 	public Moniteur getbyuser(Long id){
-		User us = userrespository.findOne(id);
+		User us = userrespository.getOne(id);
 		
 		return respository.findByUserid(us);
 		

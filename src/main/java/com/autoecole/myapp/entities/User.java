@@ -17,11 +17,6 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Entity
 @Table(name="user" , uniqueConstraints = @UniqueConstraint(columnNames = {"username","password"}))
 public class User extends AbstractPersistable<Long>{
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5942092890325064503L;
 	
 	public User() {
 		super();
